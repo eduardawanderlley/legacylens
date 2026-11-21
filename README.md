@@ -1,3 +1,11 @@
+<p align="center">
+  <a href="#english">English</a> • <a href="#português">Português</a>
+</p>
+
+---
+
+## English
+
 # LegacyLens
 
 CLI and API built to solve two painful problems when stepping into a legacy codebase: **finding where things happen** and **generating tests so you can make changes without fear**. Both rely on the same repository index.
@@ -5,13 +13,13 @@ CLI and API built to solve two painful problems when stepping into a legacy code
 - **Ask the Codebase**: answers questions like "where is payment validation handled?" by pointing to `file:line`. If the retrieved context isn't enough, it admits it doesn't know.
 - **Test Generator**: generates `pytest` tests for a given function, runs them, reads the error output, attempts to fix failures, and only saves tests that pass and actually assert behavior.
 
-## Why I built this
+### Why I built this
 
 Whenever I join an older project, I spend the first few weeks trying to figure out where each business rule lives and what will break if I change a single line. And the safety net that would give me confidence to refactor—tests—usually doesn't exist because nobody writes tests for code they don't understand.
 
 Almost every RAG tutorial out there is about "chatting with a PDF." Code works differently: exact function names, structure, and call hierarchies make all the difference. I wanted to build a tool focused on that—one that could be **measured** in practice rather than just being another pretty demo.
 
-## How it works
+### How it works
 
 ```mermaid
 flowchart LR
@@ -32,7 +40,7 @@ flowchart LR
 
 More details on architecture and technical decisions can be found in [docs/architecture.md](docs/architecture.md) and [docs/decisions.md](docs/decisions.md).
 
-## Getting started
+### Getting started
 
 You need Python 3.10+ and an Anthropic API key (`ANTHROPIC_API_KEY`) to run `ask` and `testgen`. The `index`, `search`, and search evaluation (`eval`) commands run completely offline without an API key.
 
@@ -55,7 +63,7 @@ curl -s localhost:8000/ask -H 'content-type: application/json' \
 
 Environment variable configurations (`LEGACYLENS_MODEL`, `LEGACYLENS_EMBEDDER`, `LEGACYLENS_PRICE_IN`/`_OUT` for cost estimation, etc.) are located in `config.py`.
 
-## Embeddings
+### Embeddings
 
 By default, the project uses a hashing embedder: it runs offline with zero heavy dependencies, though it doesn't understand semantics or cross-language queries well. It's meant for CI pipelines and unit tests. For real-world usage:
 
@@ -64,7 +72,7 @@ pip install -e ".[semantic]"
 LEGACYLENS_EMBEDDER=st:BAAI/bge-small-en-v1.5 legacylens index .
 ```
 
-## Results
+### Results
 
 Methodology and baseline details are in [docs/evaluation.md](docs/evaluation.md). Evaluated repository: *TBD* (I will pin the commit hash and note it here).
 
@@ -82,7 +90,7 @@ Methodology and baseline details are in [docs/evaluation.md](docs/evaluation.md)
 
 I will publish the real numbers as they come out—including where the system falls short.
 
-## Known limitations
+### Known limitations
 
 Summary of current constraints (full list in [docs/limitations.md](docs/limitations.md)):
 
@@ -92,7 +100,7 @@ Summary of current constraints (full list in [docs/limitations.md](docs/limitati
 - Vector search performs a brute-force scan in memory: handles tens of thousands of functions fine, but won't scale to millions.
 - Mutation scoring relies on `mutmut` 2.x, as CLI output formats change across major versions.
 
-## Project structure
+### Project structure
 
 ```text
 src/legacylens/
@@ -106,9 +114,15 @@ tests/          unit tests (mocked LLM and runner)
 docs/           architecture, decisions, evaluation, and limitations
 ```
 
-## Contributing & License
+### Contributing & License
 
 Check out [CONTRIBUTING.md](CONTRIBUTING.md). Licensed under MIT.
+
+Built by **YOUR NAME** ([LinkedIn](https://linkedin.com/in/your-profile)).
+
+---
+
+## Português
 
 # LegacyLens
 
@@ -117,13 +131,13 @@ CLI e API para resolver dois problemas chatos quando você pega um sistema legad
 - **Ask the Codebase**: responde perguntas como "onde fica a validação de pagamento?" apontando `arquivo:linha`. Se o contexto recuperado não der conta, ele admite que não sabe.
 - **Test Generator**: gera testes em `pytest` para uma função, roda, lê o erro, tenta corrigir e só salva o que passar e realmente validar alguma coisa.
 
-## Por que eu fiz isso
+### Por que eu fiz isso
 
 Sempre que entro em um projeto antigo, perco as primeiras semanas tentando descobrir onde está cada regra de negócio e o que vai quebrar se eu alterar uma linha. E o que traria segurança para mexer, que são os testes, normalmente não existe porque ninguém escreve teste para código que não entende.
 
 Quase todo tutorial de RAG por aí é sobre "conversar com um PDF". Só que código funciona de outro jeito: nomes exatos de funções, estrutura e quem chama quem fazem toda a diferença. Quis construir uma ferramenta focada nisso e que desse para **medir** na prática, em vez de fazer só mais uma demo bonitinha.
 
-## Como funciona
+### Como funciona
 
 ```mermaid
 flowchart LR
@@ -144,7 +158,7 @@ flowchart LR
 
 Mais detalhes sobre a arquitetura e as decisões técnicas estão em [docs/architecture.md](docs/architecture.md) e [docs/decisions.md](docs/decisions.md).
 
-## Como rodar
+### Como rodar
 
 Você precisa de Python 3.10+ e de uma chave da API da Anthropic (`ANTHROPIC_API_KEY`) para rodar `ask` e `testgen`. Os comandos `index`, `search` e a avaliação de busca (`eval`) funcionam offline, sem chave.
 
@@ -167,7 +181,7 @@ curl -s localhost:8000/ask -H 'content-type: application/json' \
 
 Configurações via variáveis de ambiente (`LEGACYLENS_MODEL`, `LEGACYLENS_EMBEDDER`, `LEGACYLENS_PRICE_IN`/`_OUT` para estimar custo, etc.) ficam em `config.py`.
 
-## Embeddings
+### Embeddings
 
 Por padrão, o projeto usa um embedder por hashing: roda offline e sem instalar nada pesado, mas não entende semântica nem mistura bem português e inglês. Serve para rodar no CI e nos testes. Para usar de verdade:
 
@@ -176,7 +190,7 @@ pip install -e ".[semantic]"
 LEGACYLENS_EMBEDDER=st:BAAI/bge-small-en-v1.5 legacylens index .
 ```
 
-## Resultados
+### Resultados
 
 A metodologia e o baseline estão em [docs/evaluation.md](docs/evaluation.md). Repositório avaliado: *a definir* (vou travar o commit e anotar aqui).
 
@@ -194,7 +208,7 @@ A metodologia e o baseline estão em [docs/evaluation.md](docs/evaluation.md). R
 
 Vou publicar os números reais como saírem, inclusive onde o sistema mandar mal.
 
-## Limitações conhecidas
+### Limitações conhecidas
 
 Resumo do que ainda pega (lista completa em [docs/limitations.md](docs/limitations.md)):
 
@@ -204,7 +218,7 @@ Resumo do que ainda pega (lista completa em [docs/limitations.md](docs/limitatio
 - A busca vetorial faz varredura bruta em memória: aguenta bem dezenas de milhares de funções, mas não escala para milhões.
 - O mutation score depende do `mutmut` 2.x, já que o formato de saída muda entre versões.
 
-## Estrutura
+### Estrutura
 
 ```text
 src/legacylens/
@@ -218,14 +232,8 @@ tests/          testes unitários (LLM e runner simulados)
 docs/           arquitetura, decisões, avaliação e limitações
 ```
 
-## Contribuição e licença
+### Contribuição e licença
 
 Dá uma olhada em [CONTRIBUTING.md](CONTRIBUTING.md). Licença MIT.
 
----
-
 Feito por **SEU NOME** ([LinkedIn](https://linkedin.com/in/seu-perfil)).
-
----
-
-Built by **YOUR NAME** ([LinkedIn](https://linkedin.com/in/your-profile)).
