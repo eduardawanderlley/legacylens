@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "legacylens"
+version = "0.1.0"
+description = "Perguntas com citação e testes que passam sobre código legado, a partir de um único índice."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["numpy>=1.24", "anthropic>=0.40"]
+
+[project.optional-dependencies]
+api = ["fastapi>=0.110", "uvicorn>=0.29"]
+semantic = ["sentence-transformers>=3.0"]
+mutation = ["mutmut>=2.4,<3"]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+legacylens = "legacylens.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F"]

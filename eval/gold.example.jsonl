@@ -1,0 +1,5 @@
+# Gabarito de exemplo. Copie para eval/gold.jsonl e preencha com perguntas do repositório que você escolheu.
+# Cada linha: id, pergunta, se é respondível, e o(s) trecho(s) de código que respondem.
+# Dica: escreva as perguntas ANTES de olhar o resultado do sistema, para não ajustar o gabarito ao que ele acerta.
+{"id": "q01", "question": "onde é feita a validação do cartão antes de cobrar?", "answerable": true, "gold": [{"path": "app/payments.py", "start_line": 21, "end_line": 28}]}
+{"id": "q02", "question": "o sistema envia notificações por SMS?", "answerable": false, "gold": []}

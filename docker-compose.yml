@@ -1,0 +1,15 @@
+# Uso: REPO=/caminho/do/repo ANTHROPIC_API_KEY=... docker compose up
+services:
+  legacylens:
+    build: .
+    ports: ["8000:8000"]
+    environment:
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:?defina ANTHROPIC_API_KEY}
+      LEGACYLENS_MODEL: ${LEGACYLENS_MODEL:-claude-sonnet-5-5}
+    volumes:
+      - ${REPO:?defina REPO com o caminho do repositório}:/repo:ro
+      - legacylens-data:/data
+    # Indexa na subida e depois serve a API.
+    command: sh -c "legacylens index /repo && uvicorn legacylens.api:app --host 0.0.0.0 --port 8000"
+volumes:
+  legacylens-data:

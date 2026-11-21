@@ -1,0 +1,27 @@
+name: legacylens-pr
+on:
+  pull_request:
+    paths: ["**.py"]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  suggest:
+    runs-on: ubuntu-latest
+    # Exige o segredo; PRs de forks não têm acesso a ele e são ignorados.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install legacylens pytest   # ajuste para instalar a partir deste repositório
+      - run: legacylens index .
+      - env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: legacylens pr-suggest --base origin/${{ github.base_ref }} --limit 3 > comment.md
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr comment ${{ github.event.pull_request.number }} --body-file comment.md
